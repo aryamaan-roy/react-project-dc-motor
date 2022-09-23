@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { HashRouter, Route, Routes, Router, BrowserRouter } from 'react-router-dom'
-import './scss/style.scss'
+//import './scss/style.scss'
 import { auth } from './firebase'
 import db from './firebase1'
 import { func } from 'prop-types'
