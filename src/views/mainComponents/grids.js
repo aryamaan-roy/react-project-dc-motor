@@ -7,7 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Radio from '@mui/material/Radio';
 import Paper from '@mui/material/Paper';
-
+import Button from '@mui/material/Button';
 import { CContainer } from '@coreui/react'
 import { CButton, CCard, CCardBody, CCardHeader } from '@coreui/react'
 import { height } from '@mui/system';
@@ -16,7 +16,7 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Typography from '@mui/material/Typography';
 import { string } from 'prop-types';
-
+import TextField from '@mui/material/TextField';
 export default function SpacingGrid() {
   const [spacing, setSpacing] = React.useState(2);
 
@@ -25,20 +25,32 @@ export default function SpacingGrid() {
     let str1 = "https://api.thingspeak.com/update?api_key=VSJOVOYRE8A7M0I9&field4="
     let str2 = String(val)
     let url = str1.concat(str2)
-    
+    console.log(val)
     fetch(url)
         .then(response => response.json())
 }
 
-const [dutyCycle, setDutyCycle] = React.useState(150);
-function valuetext(value) {
-    setDutyCycle(value)
-    console.log(value)
-    thingspeak(value)
-  return `${value}°C`;
-}
-  const handleChange = (event) => {
-    setSpacing(Number(event.target.value));
+// const [dutyCycle, setDutyCycle] = React.useState(150);
+// function valuetext(value) {
+//     setDutyCycle(value)
+//     console.log(value)
+//     console.log("okk")
+//     thingspeak(value)
+//   return `${value}°C`;
+// }
+
+const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    console.log({
+      voltage: data.get('voltage'),
+    });
+    if(data.get('voltage') <= "5" && data.get('voltage')>="0")
+    {
+        thingspeak(data.get('voltage'))
+    }
+    else alert("Please enter valid voltage in range 0-5 V")
+    
   };
 
   const jsx = `
@@ -48,7 +60,7 @@ function valuetext(value) {
   return (
 <>
 <div align="center">
-<Typography id="input-slider" gutterBottom>
+{/* <Typography id="input-slider" gutterBottom>
         INPUT VOLTAGE (V)
       </Typography>
 <Box sx={{ width: 600 }}>
@@ -62,7 +74,25 @@ function valuetext(value) {
         min={0}
         max={5}
       />
-    </Box>
+    </Box> */}
+<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+<Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="voltage"
+                  label="Input Voltage (0-5V)"
+                  name="voltage"
+                />
+</Grid>
+<Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Send Input Voltage
+            </Button></Box>
 </div>
 <br></br>
 <div align="center">
