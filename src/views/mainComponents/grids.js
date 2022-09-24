@@ -22,7 +22,7 @@ export default function SpacingGrid() {
 
   function thingspeak(val) {
     // Simple GET request using fetch
-    let str1 = "https://api.thingspeak.com/update?api_key=VSJOVOYRE8A7M0I9&field2="
+    let str1 = "https://api.thingspeak.com/update?api_key=VSJOVOYRE8A7M0I9&field4="
     let str2 = String(val)
     let url = str1.concat(str2)
     
@@ -49,23 +49,47 @@ function valuetext(value) {
 <>
 <div align="center">
 <Typography id="input-slider" gutterBottom>
-        INPUT DUTY CYCLE (V)
+        INPUT VOLTAGE (V)
       </Typography>
 <Box sx={{ width: 600 }}>
       <Slider
-        aria-label="Temperature"
-        defaultValue={70}
+        aria-label="Voltage"
+        defaultValue={1}
         getAriaValueText={valuetext}
         valueLabelDisplay="auto"
-        step={10}
+        step={0.5}
         marks
-        min={50}
-        max={255}
+        min={0}
+        max={5}
       />
     </Box>
 </div>
 <br></br>
 <div align="center">
+
+
+<br></br>
+<div class="col-xl-10 col-lg-9">
+<div class="card shadow mb-6">
+    
+    <div
+        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Thingspeak Results (VOLTAGE v/s TIME)</h6>
+        <div class="dropdown no-arrow">
+            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-map fa-sm fa-fw text-gray-400"></i>
+            </a>
+        </div>
+    </div>
+   
+    <div class="card-body" height="100%">
+        <div class="chart-area">
+            <iframe width="100%" height="100%" src={"https://thingspeak.com/channels/1848359/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&yaxismax=5&yaxismin=0"} />
+         
+        </div>
+    </div>
+</div>
     <div class="col-xl-10 col-lg-9">
         <div class="card shadow mb-6">
             
@@ -111,6 +135,8 @@ function valuetext(value) {
 </div>
 </div>
 </div>
+
+
 <br></br>
 <div class="col-xl-10 col-lg-9">
 <div class="card shadow mb-6">
@@ -132,6 +158,8 @@ function valuetext(value) {
          
         </div>
     </div>
+</div>
+
 </div>
 </div>
 </div>
